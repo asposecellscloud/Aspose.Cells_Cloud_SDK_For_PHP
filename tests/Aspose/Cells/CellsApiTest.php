@@ -11,6 +11,165 @@ class CellsApiTest extends PHPUnit_Framework_TestCase {
         $this->cells = new CellsApi();
     }
     
+    public function testDeleteDecryptDocument()
+    {
+        $body = array("Password" => "123456");
+        $result = $this->cells->DeleteDecryptDocument($name="test_cells.xlsx", $storage = null, $folder = null, $body);        
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteDocumentProperties()
+    {
+        $result = $this->cells->DeleteDocumentProperties($name="test_convert_cell.xlsx", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteDocumentProperty()
+    {
+        $result = $this->cells->DeleteDocumentProperty($name="test_convert_cell.xlsx", $propertyName="Author", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteDocumentUnProtectFromChanges()
+    {
+        $result = $this->cells->DeleteDocumentUnProtectFromChanges($name="test_convert_cell.xlsx", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteUnProtectDocument()
+    {
+        $body = array("Password" => "123456");
+        $result = $this->cells->DeleteUnProtectDocument($name="test_convert_cell.xlsx", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteUnprotectWorksheet()
+    {
+        $body = array("Password" => "123456");
+        $result = $this->cells->DeleteUnprotectWorksheet($name="test_convert_cell.xlsx", $sheetName="Sheet1", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorkSheetBackground()
+    {
+        $result = $this->cells->DeleteWorkSheetBackground($name="test_convert_cell.xlsx", $sheetName="Sheet1", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorkSheetComment()
+    {
+        $result = $this->cells->DeleteWorkSheetComment($name="test_cells.xlsx", $sheetName="Sheet1", $cellName="A2", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorkSheetHyperlink()
+    {
+        $result = $this->cells->DeleteWorkSheetHyperlink($name="test_cells.xlsx", $sheetName="Sheet3", $hyperlinkIndex="0", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorkSheetHyperlinks()
+    {
+        $result = $this->cells->DeleteWorkSheetHyperlinks($name="test_cells.xlsx", $sheetName="Sheet3", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorkSheetPictures()
+    {
+        $result = $this->cells->DeleteWorkSheetPictures($name="test_cells.xlsx", $sheetName="Sheet2", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorkSheetValidation()
+    {
+        $result = $this->cells->DeleteWorkSheetValidation($name="test_cells.xlsx", $sheetName="Sheet3", $validationIndex="0", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorksheet()
+    {
+        $result = $this->cells->DeleteWorksheet($name="test_cells.xlsx", $sheetName="Sheet3", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorksheetChartLegend()
+    {
+        $result = $this->cells->DeleteWorksheetChartLegend($name="test_cells.xlsx", $sheetName="Sheet1", $chartIndex="0", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorksheetChartTitle()
+    {
+        $result = $this->cells->DeleteWorksheetChartTitle($name="test_cells.xlsx", $sheetName="Sheet1", $chartIndex="0", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorksheetClearCharts()
+    {
+        $result = $this->cells->DeleteWorksheetClearCharts($name="test_cells.xlsx", $sheetName="Sheet1", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    /*public function testDeleteWorksheetColumns()
+    {
+        $result = $this->cells->DeleteWorksheetColumns($name="test_cells.xlsx", $sheetName="Sheet1", $columnIndex="0", $columns="0", $updateReference=true, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }*/
+    
+    public function testDeleteWorksheetDeleteChart()
+    {
+        $result = $this->cells->DeleteWorksheetDeleteChart($name="test_cells.xlsx", $sheetName="Sheet2", $chartIndex="0", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorksheetFreezePanes()
+    {
+        $result = $this->cells->DeleteWorksheetFreezePanes($name="test_cells.xlsx", $sheetName="Sheet3", $row=1, $column=1, $freezedRows=1, $freezedColumns=1, $folder = null, $storage = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorksheetOleObject()
+    {
+        $result = $this->cells->DeleteWorksheetOleObject($name="test_cells.xlsx", $sheetName="Sheet2", $oleObjectIndex="0", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorksheetOleObjects()
+    {
+        $result = $this->cells->DeleteWorksheetOleObjects($name="test_cells.xlsx", $sheetName="Sheet2", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorksheetPicture()
+    {
+        $result = $this->cells->DeleteWorksheetPicture($name="test_cells.xlsx", $sheetName="Sheet2", $pictureIndex="0", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorksheetPivotTable()
+    {
+        $result = $this->cells->DeleteWorksheetPivotTable($name="test_cells.xlsx", $sheetName="Sheet4", $pivotTableIndex="0", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorksheetPivotTables()
+    {
+        $result = $this->cells->DeleteWorksheetPivotTables($name="test_cells.xlsx", $sheetName="Sheet4", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorksheetRow()
+    {
+        $result = $this->cells->DeleteWorksheetRow($name="test_cells.xlsx", $sheetName="Sheet3", $rowIndex=1, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testDeleteWorksheetRows()
+    {
+        $result = $this->cells->DeleteWorksheetRows($name="test_cells.xlsx", $sheetName="Sheet3", $startrow=1, $totalRows=10, $updateReference = null, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
     public function testGetChartArea()
     {
         $result = $this->cells->GetChartArea($name="test_cells.xlsx", $sheetName="Sheet1", $chartIndex="0", $storage = null, $folder = null);        
