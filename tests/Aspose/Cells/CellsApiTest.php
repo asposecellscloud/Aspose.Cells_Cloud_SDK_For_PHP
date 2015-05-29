@@ -470,6 +470,600 @@ class CellsApiTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(200, $result->Code);
     }
     
+    public function testPostAutofitWorkbookRows()
+    {
+        $body = '{
+                    "AutoFitMergedCells": true,
+                    "IgnoreHidden": true,
+                    "OnlyAuto": true
+                  }';
+        $result = $this->cells->PostAutofitWorkbookRows($name="test_cells.xlsx", $startRow = null, $endRow = null, $onlyAuto = null, $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostAutofitWorksheetRows()
+    {
+        $body = '{
+                    "AutoFitMergedCells": true,
+                    "IgnoreHidden": true,
+                    "OnlyAuto": true
+                  }';
+        $result = $this->cells->PostAutofitWorksheetRows($name="test_cells.xlsx", $sheetName="Sheet3", $startRow = null, $endRow = null, $onlyAuto = null, $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostClearContents()
+    {
+        $result = $this->cells->PostClearContents($name="test_cells.xlsx", $sheetName="Sheet3", $range = "A1:C4", $startRow = null, $startColumn = null, $endRow = null, $endColumn = null, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostClearFormats()
+    {
+        $result = $this->cells->PostClearFormats($name="test_cells.xlsx", $sheetName="Sheet4", $range = "A1:G1", $startRow = null, $startColumn = null, $endRow = null, $endColumn = null, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostColumnStyle()
+    {
+        $body = '{
+                    "Font": {
+                      "Color": {
+                        "A": "",
+                        "R": "28",
+                        "G": "24",
+                        "B": "22"
+                      },
+                      "DoubleSize": 0,
+                      "IsBold": true,
+                      "IsItalic": true,
+                      "IsStrikeout": true,
+                      "IsSubscript": true,
+                      "IsSuperscript": true,
+                      "Name": "string",
+                      "Size": 0,
+                      "Underline": "string"
+                    },
+                    "Name": "Arial",
+                    "CultureCustom": "string",
+                    "Custom": "string",
+                    "BackgroundColor": "SaaSpose.API.Business.Cells.DTO.Color",
+                    "ForegroundColor": "SaaSpose.API.Business.Cells.DTO.Color",
+                    "IsFormulaHidden": true,
+                    "IsDateTime": true,
+                    "IsTextWrapped": true,
+                    "IsGradient": true,
+                    "IsLocked": true,
+                    "IsPercent": true,
+                    "ShrinkToFit": true,
+                    "IndentLevel": 0,
+                    "Number": 0,
+                    "RotationAngle": 0,
+                    "Pattern": "string",
+                    "TextDirection": "string",
+                    "VerticalAlignment": "string",
+                    "HorizontalAlignment": "string",
+                    "BorderCollection": [
+                      {
+                        "LineStyle": "string",
+                        "Color": "SaaSpose.API.Business.Cells.DTO.Color",
+                        "BorderType": "string"
+                      }
+                    ],
+                    "link": {
+                      "Href": "string",
+                      "Rel": "string",
+                      "Type": "string",
+                      "Title": "string"
+                    }
+                  }';
+        $result = $this->cells->PostColumnStyle($name="test_cells.xlsx", $sheetName="Sheet3", $columnIndex=1, $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostCopyCellIntoCell()
+    {
+        $result = $this->cells->PostCopyCellIntoCell($name="test_cells.xlsx", $destCellName="A1", $sheetName="Sheet1", $worksheet="Sheet3", $cellname="A2", $row = null, $column = null, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostCopyWorksheet()
+    {
+        $result = $this->cells->PostCopyWorksheet($name="test_cells.xlsx", $sheetName="NewSheet", $folder = null, $storage = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostCopyWorksheetColumns()
+    {
+        $result = $this->cells->PostCopyWorksheetColumns($name="test_cells.xlsx", $sheetName="Sheet3", $sourceColumnIndex=2, $destinationColumnIndex=5, $columnNumber=6, $worksheet = null, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostCopyWorksheetRows()
+    {
+        $result = $this->cells->PostCopyWorksheetRows($name="test_cells.xlsx", $sheetName="Sheet3", $sourceRowIndex=3, $destinationRowIndex=7, $rowNumber=1, $worksheet = null, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostDocumentSaveAs()
+    {
+        $body = '{
+                    "desiredPPI": 300,
+                    "jpegQuality": 70,
+                    "OnePagePerSheet": true,
+                    "SaveFormat": "pdf"
+                  }';
+        $result = $this->cells->PostDocumentSaveAs($name="test_cells.xlsx", $newfilename = "test_cells.pdf", $isAutoFitRows = null, $isAutoFitColumns = null, $storage = null, $folder = null, $body);
+        print_r($result);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostEncryptDocument()
+    {
+        $body = array("EncriptionType"=>"XOR", "KeyLength"=>"128", "Password"=>"123456");
+        $result = $this->cells->PostEncryptDocument($name="test_cells.xlsx", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostGroupWorksheetColumns()
+    {
+        $result = $this->cells->PostGroupWorksheetColumns($name="test_cells.xlsx", $sheetName="Sheet3", $firstIndex=1, $lastIndex=5, $hide = null, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostGroupWorksheetRows()
+    {
+        $result = $this->cells->PostGroupWorksheetRows($name="test_cells.xlsx", $sheetName="Sheet3", $firstIndex=1, $lastIndex=5, $hide = null, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostHideWorksheetColumns()
+    {
+        $result = $this->cells->PostHideWorksheetColumns($name="test_cells.xlsx", $sheetName="Sheet3", $startColumn=1, $totalColumns=10, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostHideWorksheetRows()
+    {
+        $result = $this->cells->PostHideWorksheetRows($name="test_cells.xlsx", $sheetName="Sheet3", $startrow=1, $totalRows=10, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostImportData()
+    {
+        $body = '{
+                    "DestinationWorksheet": "Sheet3",
+                    "IsInsert": true
+                  }';
+        $result = $this->cells->PostImportData($name="test_cells.xlsx", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostMoveWorksheet()
+    {
+        $body = '{
+                    "DestinationWorksheet": "Sheet3",
+                    "Position": "after"
+                  }';
+        $result = $this->cells->PostMoveWorksheet($name="test_cells.xlsx", $sheetName="Sheet1", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostProtectDocument()
+    {
+        $body = array("ProtectionType"=>"All", "Password"=>"abc");
+        $result = $this->cells->PostProtectDocument($name="test_convert_cell.xlsx", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostRenameWorksheet()
+    {
+        $result = $this->cells->PostRenameWorksheet($name="test_cells.xlsx", $sheetName="Sheet4", $newname="RenameSheet4", $folder = null, $storage = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostRowStyle()
+    {
+        $body = '{
+                "Font": {
+                  "Color": {
+                    "A": "",
+                    "R": "44",
+                    "G": "24",
+                    "B": "22"
+                  },
+                  "DoubleSize": 0,
+                  "IsBold": true,
+                  "IsItalic": true,
+                  "IsStrikeout": true,
+                  "IsSubscript": true,
+                  "IsSuperscript": true,
+                  "Name": "string",
+                  "Size": 0,
+                  "Underline": "string"
+                },
+                "Name": "Arial",
+                "CultureCustom": "string",
+                "Custom": "string",
+                "BackgroundColor": "SaaSpose.API.Business.Cells.DTO.Color",
+                "ForegroundColor": "SaaSpose.API.Business.Cells.DTO.Color",
+                "IsFormulaHidden": true,
+                "IsDateTime": true,
+                "IsTextWrapped": true,
+                "IsGradient": true,
+                "IsLocked": true,
+                "IsPercent": true,
+                "ShrinkToFit": true,
+                "IndentLevel": 0,
+                "Number": 0,
+                "RotationAngle": 0,
+                "Pattern": "string",
+                "TextDirection": "string",
+                "VerticalAlignment": "string",
+                "HorizontalAlignment": "string",
+                "BorderCollection": [
+                  {
+                    "LineStyle": "string",
+                    "Color": "SaaSpose.API.Business.Cells.DTO.Color",
+                    "BorderType": "string"
+                  }
+                ],
+                "link": {
+                  "Href": "string",
+                  "Rel": "string",
+                  "Type": "string",
+                  "Title": "string"
+                }
+              }';
+        $result = $this->cells->PostRowStyle($name="test_cells.xlsx", $sheetName="Sheet3", $rowIndex=1, $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostSetCellHtmlString()
+    {
+        $file = getcwd() . '/Data/Input/index.html';
+        $result = $this->cells->PostSetCellHtmlString($name="test_cells.xlsx", $sheetName="Sheet3", $cellName="A1", $storage = null, $folder = null, $file);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostSetCellRangeValue()
+    {
+        $result = $this->cells->PostSetCellRangeValue($name="test_cells.xlsx", $sheetName="Sheet3", $cellarea="A1:A5", $value="sample", $type="string", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostSetWorksheetColumnWidth()
+    {
+        $result = $this->cells->PostSetWorksheetColumnWidth($name="test_cells.xlsx", $sheetName="Sheet3", $columnIndex=1, $width=200, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostUngroupWorksheetColumns()
+    {
+        $result = $this->cells->PostUngroupWorksheetColumns($name="test_cells.xlsx", $sheetName="Sheet3", $firstIndex=1, $lastIndex=5, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostUngroupWorksheetRows()
+    {
+        $result = $this->cells->PostUngroupWorksheetRows($name="test_cells.xlsx", $sheetName="Sheet3", $firstIndex=1, $lastIndex=5, $isAll = null, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostUnhideWorksheetColumns()
+    {
+        $result = $this->cells->PostUnhideWorksheetColumns($name="test_cells.xlsx", $sheetName="Sheet3", $startcolumn=1, $totalColumns=5, $width = null, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostUnhideWorksheetRows()
+    {
+        $result = $this->cells->PostUnhideWorksheetRows($name="test_cells.xlsx", $sheetName="Sheet3", $startrow=1, $totalRows=5, $height = null, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostUpdateWorksheetCellStyle()
+    {
+        $body = '{
+                    "Font": {
+                      "Color": {
+                        "A": "",
+                        "R": "28",
+                        "G": "24",
+                        "B": "22"
+                      },
+                      "DoubleSize": 20.0,
+                      "IsBold": true,
+                      "IsItalic": true,
+                      "IsStrikeout": true,
+                      "IsSubscript": true,
+                      "IsSuperscript": true,
+                      "Name": "string",
+                      "Size": 0,
+                      "Underline": "string"
+                    },
+                    "Name": "Arial",
+                    "CultureCustom": "string",
+                    "Custom": "string",
+                    "BackgroundColor": "SaaSpose.API.Business.Cells.DTO.Color",
+                    "ForegroundColor": "SaaSpose.API.Business.Cells.DTO.Color",
+                    "IsFormulaHidden": true,
+                    "IsDateTime": true,
+                    "IsTextWrapped": true,
+                    "IsGradient": true,
+                    "IsLocked": true,
+                    "IsPercent": true,
+                    "ShrinkToFit": true,
+                    "IndentLevel": 0,
+                    "Number": 0,
+                    "RotationAngle": 0,
+                    "Pattern": "string",
+                    "TextDirection": "string",
+                    "VerticalAlignment": "string",
+                    "HorizontalAlignment": "string",
+                    "BorderCollection": [
+                      {
+                        "LineStyle": "string",
+                        "Color": "SaaSpose.API.Business.Cells.DTO.Color",
+                        "BorderType": "string"
+                      }
+                    ],
+                    "link": {
+                      "Href": "string",
+                      "Rel": "string",
+                      "Type": "string",
+                      "Title": "string"
+                    }
+                  }';
+        $result = $this->cells->PostUpdateWorksheetCellStyle($name="test_cells.xlsx", $sheetName="Sheet3", $cellName="A1", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostUpdateWorksheetOleObject()
+    {
+        $body = '{
+                    "OleObject": {
+                      "Name" : "ole",
+                      "UpperLeftRow" : "18",
+                      "Top" : "100",
+                      "UpperLeftColumn" : "18",
+                      "Left" : "100",
+                      "LowerRightRow" : "24",
+                      "Bottom" : "0",
+                      "LowerRightColumn" : "2",
+                      "Right" : "0",
+                      "Width" : "100",
+                      "Height" : "100",
+                      "X" : "64",
+                      "Y" : "360",
+                      "DisplayAsIcon" : "false",
+                      "FileType" : "Unknown",
+                      "IsAutoSize" : "false",
+                      "IsLink" : "false",
+                      "SourceFullName" : "ole.docx",
+                      "ImageSourceFullName" : "WaterMark.png",
+                    }}';
+        $result = $this->cells->PostUpdateWorksheetOleObject($name="test_cells.xlsx", $sheetName="Sheet2", $oleObjectIndex="0", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostUpdateWorksheetProperty()
+    {
+        $body = array("Type"=>"Worksheet", "Name"=>"NewSheet", "IsGridlinesVisible"=>"false");
+        $result = $this->cells->PostUpdateWorksheetProperty($name="test_cells.xlsx", $sheetName="Sheet3", $folder = null, $storage = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostUpdateWorksheetRangeStyle()
+    {
+        $body = '{
+                    "Font": {
+                      "Color": {
+                        "A": "255",
+                        "R": "255",
+                        "G": "0",
+                        "B": "0"
+                      },
+                      "DoubleSize": 11.0,
+                      "IsBold": true,
+                      "IsItalic": true,
+                      "IsStrikeout": true,
+                      "IsSubscript": true,
+                      "IsSuperscript": true,
+                      "Name": "Arial",
+                      "Size": 24,
+                      "Underline": "Single"
+                    },
+                    "Name": null,
+                    "CultureCustom": "",
+                    "Custom": "",
+                    "BackgroundColor": "SaaSpose.API.Business.Cells.DTO.Color",
+                    "ForegroundColor": "SaaSpose.API.Business.Cells.DTO.Color",
+                    "IsFormulaHidden": true,
+                    "IsDateTime": true,
+                    "IsTextWrapped": true,
+                    "IsGradient": true,
+                    "IsLocked": true,
+                    "IsPercent": true,
+                    "ShrinkToFit": true,
+                    "IndentLevel": 0,
+                    "Number": 0,
+                    "RotationAngle": 0,
+                    "Pattern": "string",
+                    "TextDirection": "string",
+                    "VerticalAlignment": "string",
+                    "HorizontalAlignment": "string",
+                    "BorderCollection": [
+                      {
+                        "LineStyle": "string",
+                        "Color": "SaaSpose.API.Business.Cells.DTO.Color",
+                        "BorderType": "string"
+                      }
+                    ],
+                    "link": {
+                      "Href": "string",
+                      "Rel": "string",
+                      "Type": "string",
+                      "Title": "string"
+                    }
+                  }';
+        $result = $this->cells->PostUpdateWorksheetRangeStyle($name="test_cells.xlsx", $sheetName="Sheet3", $range="A1:G10", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostUpdateWorksheetRow()
+    {
+        $result = $this->cells->PostUpdateWorksheetRow($name="test_cells.xlsx", $sheetName="Sheet3", $rowIndex=1, $height=50, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostWorkSheetComment()
+    {
+        $body = '{
+                    "CellName": "A2",
+                    "Author": "Masood",
+                    "HtmlNote": "",
+                    "Note": "Update comments",
+                    "AutoSize": true,
+                    "IsVisible": true,
+                    "Width": 0,
+                    "Height": 0,
+                    "TextHorizontalAlignment": "",
+                    "TextOrientationType": "",
+                    "TextVerticalAlignment": "",
+                    "link": {
+                      "Href": "",
+                      "Rel": "",
+                      "Type": "",
+                      "Title": ""
+                    }
+                  }';
+        $result = $this->cells->PostWorkSheetComment($name="test_cells.xlsx", $sheetName="Sheet1", $cellName="A2", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostWorkSheetHyperlink()
+    {
+        $body = array("Address"=>"http://www.aspose.com", "TextToDisplay"=>"Welcome to Aspose", "ScreenTip"=>"Hello World");
+        $result = $this->cells->PostWorkSheetHyperlink($name="test_cells.xlsx", $sheetName="Sheet3", $hyperlinkIndex="0", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostWorkSheetPicture()
+    {
+        $body = array("Name"=>"test_picture", "AutoShapeType"=>"Picture", "Placement"=>"MoveAndSize",
+                      "UpperLeftRow"=>5, "Top"=>100, "UpperLeftColumn"=>5, "Left"=>100);
+        $result = $this->cells->PostWorkSheetPicture($name="test_cells.xlsx", $sheetName="Sheet2", $pictureIndex="0", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostWorkSheetTextSearch()
+    {
+        $result = $this->cells->PostWorkSheetTextSearch($name="test_cells.xlsx", $sheetName="Sheet2", $text="OLE", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    /*public function testPostWorkSheetValidation()
+    {
+        $result = $this->cells->PostWorkSheetValidation($name="test_cells.xlsx", $sheetName="Sheet2", $validationIndex, $storage = null, $folder = null, $file);
+        $this->assertEquals(200, $result->Code);
+    }*/
+    
+    public function testPostWorkbookCalculateFormula()
+    {
+        $result = $this->cells->PostWorkbookCalculateFormula($name="test_cells.xlsx", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    /*public function testPostWorkbookGetSmartMarkerResult()
+    {
+        $result = $this->cells->PostWorkbookGetSmartMarkerResult($name="test_cells.xlsx", $xmlFile = null, $storage = null, $folder = null, $outPath = null, $file);
+        $this->assertEquals(200, $result->Code);
+    }*/
+    
+    public function testPostWorkbookSplit()
+    {
+        $result = $this->cells->PostWorkbookSplit($name="test_cells.xlsx", $format = "png", $from = null, $to = null, $horizontalResolution = null, $verticalResolution = null, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostWorkbooksMerge()
+    {
+        $result = $this->cells->PostWorkbooksMerge($name="test_cells.xlsx", $mergeWith="test_convert_cell.xlsx", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostWorkbooksTextReplace()
+    {
+        $result = $this->cells->PostWorkbooksTextReplace($name="test_cells.xlsx", $oldValue="OLE", $newValue="OleObject", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostWorkbooksTextSearch()
+    {
+        $result = $this->cells->PostWorkbooksTextSearch($name="test_cells.xlsx", $text="OLE", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostWorksheetCellSetValue()
+    {
+        $result = $this->cells->PostWorksheetCellSetValue($name="test_cells.xlsx", $sheetName="Sheet3", $cellName="A1", $value="HelloWorld", $type="string", $formula = null, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostWorksheetChartLegend()
+    {
+        $body = array("Legend"=>array("Position"=>"Bottom"));
+        $result = $this->cells->PostWorksheetChartLegend($name="test_cells.xlsx", $sheetName="Sheet1", $chartIndex="0", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostWorksheetChartTitle()
+    {
+        $body = array("Title"=>array("Text"=>"Sales Report"));
+        $result = $this->cells->PostWorksheetChartTitle($name="test_cells.xlsx", $sheetName="Sheet1", $chartIndex="0", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostWorksheetMerge()
+    {
+        $result = $this->cells->PostWorksheetMerge($name="test_cells.xlsx", $sheetName="Sheet1", $startRow=1, $startColumn=1, $totalRows=10, $totalColumns=10, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostWorksheetRangeSort()
+    {
+        $body = array(
+                    "CaseSensitive" => true,
+                    "HasHeaders" => true,
+                    'SortLeftToRight'=> false,
+                    "KeyList" => array(
+                      array(
+                        "Key"=> 4,
+                        "SortOrder"=> "descending"
+                      ),
+                      array(
+                        "Key"=> 5,
+                        "SortOrder"=> "descending"
+                      )
+                    )
+                  );
+        $result = $this->cells->PostWorksheetRangeSort($name="test_cells.xlsx", $sheetName="Sheet4", $cellArea="A1:G22", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostWorksheetUnmerge()
+    {
+        $result = $this->cells->PostWorksheetUnmerge($name="test_cells.xlsx", $sheetName="Sheet3", $startRow=1, $startColumn=1, $totalRows=10, $totalColumns=10, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostWorsheetTextReplace()
+    {
+        $result = $this->cells->PostWorsheetTextReplace($name="test_cells.xlsx", $sheetName="Sheet2", $oldValue="OLE", $newValue="Ole", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
     public function testPutAddNewWorksheet()
     {
         $result = $this->cells->PutAddNewWorksheet($name="test_cells.xlsx", $sheetName="NewSheet", $storage = null, $folder = null);
