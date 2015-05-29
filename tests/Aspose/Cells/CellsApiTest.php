@@ -469,6 +469,198 @@ class CellsApiTest extends PHPUnit_Framework_TestCase {
         $result = $this->cells->GetWorksheetRows($name="test_cells.xlsx", $sheetName="Sheet2", $storage = null, $folder = null);
         $this->assertEquals(200, $result->Code);
     }
-      
-                         
+    
+    public function testPutAddNewWorksheet()
+    {
+        $result = $this->cells->PutAddNewWorksheet($name="test_cells.xlsx", $sheetName="NewSheet", $storage = null, $folder = null);
+        $this->assertEquals('Created', $result->Status);
+    }
+    
+    public function testPutChangeVisibilityWorksheet()
+    {
+        $result = $this->cells->PutChangeVisibilityWorksheet($name="test_cells.xlsx", $sheetName="Sheet1", $isVisible="true", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPutConvertWorkBook()
+    {
+        $file = getcwd() . '/Data/Input/test_convert_cell.xlsx';
+        $result = $this->cells->PutConvertWorkBook($format = "pdf", $password = null, $outPath = null, $file);
+        $fh = fopen(getcwd(). '/Data/Output/test_convert_cell.pdf', 'w');
+        fwrite($fh, $result);
+        fclose($fh);
+        $this->assertFileExists(getcwd(). '/Data/Output/test_convert_cell.pdf');
+    }
+    
+    public function testPutDocumentProperty()
+    {
+        $body = array("Value"=>"Aspose");
+        $result = $this->cells->PutDocumentProperty($name="test_cells.xlsx", $propertyName="Title", $storage = null, $folder = null, $body);
+        $this->assertEquals('Created', $result->Status);
+    }
+    
+    public function testPutDocumentProtectFromChanges()
+    {
+        $body = array("ProtectionType"=>"all", "Password"=>"123456");
+        $result = $this->cells->PutDocumentProtectFromChanges($name="test_cells.xlsx", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPutInsertWorksheetColumns()
+    {
+        $result = $this->cells->PutInsertWorksheetColumns($name="test_cells.xlsx", $sheetName="Sheet1", $columnIndex=1, $columns=5, $updateReference = null, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPutInsertWorksheetRow()
+    {
+        $result = $this->cells->PutInsertWorksheetRow($name="test_cells.xlsx", $sheetName="Sheet1", $rowIndex=1, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPutInsertWorksheetRows()
+    {
+        $result = $this->cells->PutInsertWorksheetRows($name="test_cells.xlsx", $sheetName="Sheet1", $startrow=1, $totalRows=10, $updateReference = null, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPutWorkSheetBackground()
+    {
+        $file = getcwd() . '/Data/Input/watermark.png';
+        $result = $this->cells->PutWorkSheetBackground($name="test_cells.xlsx", $sheetName="Sheet1", $storage = null, $folder = null, $file);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPutWorkSheetComment()
+    {
+        $body = '{
+                    "CellName": "A1",
+                    "Author": "Masood",
+                    "HtmlNote": "",
+                    "Note": "Add comments",
+                    "AutoSize": true,
+                    "IsVisible": true,
+                    "Width": 0,
+                    "Height": 0,
+                    "TextHorizontalAlignment": "",
+                    "TextOrientationType": "",
+                    "TextVerticalAlignment": "",
+                    "link": {
+                      "Href": "",
+                      "Rel": "",
+                      "Type": "",
+                      "Title": ""
+                    }
+                  }';
+        $result = $this->cells->PutWorkSheetComment($name="test_cells.xlsx", $sheetName="Sheet1", $cellName="A1", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPutWorkSheetHyperlink()
+    {
+        $result = $this->cells->PutWorkSheetHyperlink($name="test_cells.xlsx", $sheetName="Sheet1", $firstRow=1, $firstColumn=1, $totalRows=1, $totalColumns=1, $address="www.aspose.com", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPutWorkSheetValidation()
+    {
+        $result = $this->cells->PutWorkSheetValidation($name="test_cells.xlsx", $sheetName="Sheet1", $range="A1:A5", $storage = null, $folder = null, $file = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPutWorkbookCreate()
+    {
+        $file = getcwd() . '/Data/Input/test_convert_cell.xlsx';
+        $result = $this->cells->PutWorkbookCreate($name="new_workbook.xlsx", $templateFile = null, $dataFile = null, $storage = null, $folder = null, $file);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPutWorksheetAddChart()
+    {
+        $result = $this->cells->PutWorksheetAddChart($name="test_cells.xlsx", $sheetName="Sheet1", $chartType="bar", $upperLeftRow = 12, $upperLeftColumn = 12, $lowerRightRow = 20, $lowerRightColumn = 20, $area = null, $isVertical = null, $categoryData = null, $isAutoGetSerialName = null, $title = null, $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPutWorksheetAddPicture()
+    {
+        $file = getcwd() . '/Data/Input/watermark.png';
+        $result = $this->cells->PutWorksheetAddPicture($name="test_cells.xlsx", $sheetName="Sheet3", $upperLeftRow = 12, $upperLeftColumn = 12, $lowerRightRow = 20, $lowerRightColumn = 20, $picturePath = "watermark.png", $storage = null, $folder = null, $file);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPutWorksheetChartLegend()
+    {
+        $result = $this->cells->PutWorksheetChartLegend($name="test_cells.xlsx", $sheetName="Sheet1", $chartIndex="0", $storage = null, $folder = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPutWorksheetChartTitle()
+    {
+        $body = array("Title"=>array("Text"=>"Sales Report"));
+        $result = $this->cells->PutWorksheetChartTitle($name="test_cells.xlsx", $sheetName="Sheet1", $chartIndex="0", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPutWorksheetFreezePanes()
+    {
+        $result = $this->cells->PutWorksheetFreezePanes($name="test_cells.xlsx", $sheetName="Sheet1", $row=1, $column=1, $freezedRows=5, $freezedColumns=5, $folder = null, $storage = null);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPutWorksheetOleObject()
+    {
+        $body = '{
+                    "DisplayAsIcon": true,
+                    "FileFormatType": "",
+                    "ImageSourceFullName": "watermark.png",
+                    "IsAutoSize": true,
+                    "IsLink": true,
+                    "ProgID": "",
+                    "SourceFullName": "ole.docx",
+                    "Name": "OLE",
+                    "MsoDrawingType": "",
+                    "AutoShapeType": "",
+                    "Placement": "",
+                    "UpperLeftRow": 20,
+                    "Top": 20,
+                    "UpperLeftColumn": 20,
+                    "Left": 20,
+                    "LowerRightRow": 10,
+                    "Bottom": 10,
+                    "LowerRightColumn": 10,
+                    "Right": 20,
+                    "Width": 200,
+                    "Height": 100,
+                    "X": 0,
+                    "Y": 0,
+                    "RotationAngle": 0,
+                    "HtmlText": "",
+                    "Text": "ole object",
+                    "AlternativeText": "no alternative text",
+                    "TextHorizontalAlignment": "",
+                    "TextHorizontalOverflow": "",
+                    "TextOrientationType": "string",
+                    "TextVerticalAlignment": "string",
+                    "TextVerticalOverflow": "string",
+                    "IsGroup": true,
+                    "IsHidden": true,
+                    "IsLockAspectRatio": true,
+                    "IsLocked": true,
+                    "IsPrintable": true,
+                    "IsTextWrapped": true,
+                    "IsWordArt": true,
+                    "LinkedCell": "string",
+                    "ZOrderPosition": 0
+                  }';
+        $result = $this->cells->PutWorksheetOleObject($name="test_cells.xlsx", $sheetName="Sheet3", $upperLeftRow = null, $upperLeftColumn = null, $height = null, $width = null, $oleFile = null, $imageFile = null, $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    /*public function testPutWorksheetPivotTable()
+    {
+        $body = '';
+        $result = $this->cells->PutWorksheetPivotTable($name="test_cells.xlsx", $sheetName="Sheet1", $storage = null, $folder = null, $sourceData = null, $destCellName = null, $tableName = null, $useSameSource = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }*/
+                           
 }    
