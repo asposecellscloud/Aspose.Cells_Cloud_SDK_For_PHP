@@ -649,6 +649,31 @@ class CellsApiTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(200, $result->Code);
     }
     
+    public function testPostPivotTableCellStyle()
+    {
+        $body = '{
+                    "Style": {
+                      "IsGradient": "true",
+                      "Font": { "IsBold": "true" }
+                    }
+                  }';
+        $result = $this->cells->PostPivotTableCellStyle($name="sample.xlsx", $sheetName="Sheet6", $pivotTableIndex="0", $column=1, $row=1, $storage = null, $folder = null, $body);
+        print_r($result);
+        $this->assertEquals(200, $result->Code);
+    }
+    
+    public function testPostPivotTableStyle()
+    {
+        $body = '{
+                    "Style": {
+                      "IsGradient": "true",
+                      "Font": { "IsBold": "true" }
+                    }
+                  }';
+        $result = $this->cells->PostPivotTableStyle($name="sample.xlsx", $sheetName="Sheet6", $pivotTableIndex="0", $storage = null, $folder = null, $body);
+        $this->assertEquals(200, $result->Code);
+    }
+    
     public function testPostProtectDocument()
     {
         $body = array("ProtectionType"=>"All", "Password"=>"abc");
@@ -975,11 +1000,12 @@ class CellsApiTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(200, $result->Code);
     }
     
-    /*public function testPostWorkbookGetSmartMarkerResult()
+    public function testPostWorkbookGetSmartMarkerResult()
     {
-        $result = $this->cells->PostWorkbookGetSmartMarkerResult($name="test_cells.xlsx", $xmlFile = null, $storage = null, $folder = null, $outPath = null, $file);
-        $this->assertEquals(200, $result->Code);
-    }*/
+        $file = getcwd() . '/Data/Input/Marker.xml';
+        $result = $this->cells->PostWorkbookGetSmartMarkerResult($name="Book1.xlsx", $xmlFile = null, $storage = null, $folder = null, $outPath = "smartmarker1.xlsx", $file);
+        $this->assertEquals(200, $result->StatusCode);
+    }
     
     public function testPostWorkbookSplit()
     {
@@ -1250,11 +1276,25 @@ class CellsApiTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(200, $result->Code);
     }
     
-    /*public function testPutWorksheetPivotTable()
+    public function testPutWorksheetPivotTable()
     {
-        $body = '';
-        $result = $this->cells->PutWorksheetPivotTable($name="test_cells.xlsx", $sheetName="Sheet1", $storage = null, $folder = null, $sourceData = null, $destCellName = null, $tableName = null, $useSameSource = null, $body);
+        $body = '{
+                    "Name": "MyData",
+                    "SourceData": "A1",
+                    "DestCellName": "A2",
+                    "UseSameSource": true,
+                    "PivotFieldRows": [
+                      0
+                    ],
+                    "PivotFieldColumns": [
+                      0
+                    ],
+                    "PivotFieldData": [
+                      0
+                    ]
+                  }';
+        $result = $this->cells->PutWorksheetPivotTable($name="test_convert_cell.xlsx", $sheetName="Sheet1", $storage = null, $folder = null, $sourceData = null, $destCellName = null, $tableName = null, $useSameSource = null, $body);
         $this->assertEquals(200, $result->Code);
-    }*/
+    }
                            
 }    
